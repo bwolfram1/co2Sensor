@@ -6,6 +6,8 @@ void setup() {
   Serial.begin(9600);
   Serial1.begin(9600);
   Serial.println("MHZ test");
+  //calibrate();
+  //Serial.print("Done Calibration")
 }
 
 void loop() {
@@ -13,7 +15,7 @@ void loop() {
   Serial.print("Time from start: ");
   Serial.print((millis() - startTime) / 1000);
   Serial.println(" s");
-  int ppm_uart = readCO2UART();
+  //int ppm_uart = readCO2UART();
   
 }
 
@@ -55,7 +57,7 @@ int readCO2UART(){
   //}
  
   // ppm
-  int ppm_uart = 256 * (int)response[2] + response[3];
+  int ppm_uart = 256 * int(response[2]) + int(response[3]);
   Serial.print("PPM UART: ");
   Serial.println(ppm_uart);
 
@@ -73,4 +75,11 @@ int readCO2UART(){
   }
  
   return ppm_uart;
+}
+
+void calibrate()
+{
+  byte cmdCal[9] = {0xFF, 0x01, 0x87, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78};  // calibrate command
+  Serial.write(cmdCal, 9);
+  delay(3000);
 }
