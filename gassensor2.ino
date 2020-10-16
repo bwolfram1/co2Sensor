@@ -52,8 +52,8 @@ void loop() {
   Serial.print((millis() - startTime) / 1000);
   Serial.println(" s");
   int ppm_uart = readCO2UART();
-  int ppmPWM = readPPMPWM();
-  Serial.print(ppmPWM); 
+  //int ppmPWM = readPPMPWM();
+  //Serial.print(ppmPWM); 
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.clearDisplay();
@@ -61,7 +61,7 @@ void loop() {
   display.println("CO2 PPM:");
   display.setTextSize(5);
   display.setCursor(0, 50);
-  display.println(ppmPWM);
+  display.println(ppm_uart);
   display.display();      // Show initial text
   delay(100);
   //calibrate();
